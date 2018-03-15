@@ -1,0 +1,130 @@
+/*--blogs begin--*/
+#blogs{
+    width: 100%;
+}
+.blogs-container{
+    display: flex;
+    display: -webkit-flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-align-items:center;
+    align-items:center;
+    -webkit-justify-content:center;
+    justify-content:center;
+    width:100%;
+    margin-top:80px;
+}
+.blogs-container .blog-list{
+    width: 90%;
+    height: 400px;
+    margin: 40px 0;
+    padding: 5px;
+    border: 1px solid #c0c0c0;
+}
+.blogs-container .blog-list .blog-pic,
+.blogs-container .blog-list .blog{
+    width: 49%;
+    height: 100%;
+}
+.blogs-container .blog-list .blog-pic img{
+    width: 100%;
+    height: 100%;
+}
+.blogs-container .blog-list .blog .blog-title,
+.blogs-container .blog-list .blog .blog-summary{
+    overflow: hidden;
+    width: 100%;
+}
+.blogs-container .blog-list .blog .blog-title{
+    height: 100px;
+}
+.blogs-container .blog-list .blog .blog-summary{
+    height: 250px;
+}
+.blogs-container .blog-list .blog .read-more{
+    position: relative;
+    left:70%;
+    bottom: 0;
+    height:50px;
+    width: 100px;
+    line-height: 50px;
+}
+.blogs-container .blog-list .blog .read-more:after{
+    height: 50px;
+    width: 100px;
+}
+/*--blogs end--*/
+/*--pages nav begin--*/
+#pages{
+    width: 100%;
+    margin: 100px 0;
+}
+#pages .page-list{
+    text-align: center;
+    width: 90%;
+    height: 52px;
+    font-size: 0;
+    margin:0  auto;
+}
+#pages .page-list li{
+    display: inline-block;
+    font-size: 16px;
+    width: 100px;
+    height: 50px;
+    line-height: 50px;
+    border: 1px solid #c0c0c0;
+}
+#pages .page-list li:hover,
+#pages .page-list .active {
+    color: #ffffff;
+    background-color: #000000;
+}
+/*--pages nav begin--*/
+
+/*自适应*/
+@media all and (max-width:961px) {
+
+    .blogs-container .blog-list .blog-pic{
+        width: 40%;
+    }
+    .blogs-container .blog-list .blog{
+        float: left;
+        margin-left: 20px;
+    }
+    #pages .page-list{
+        height: 104px;
+    }
+
+}
+@media all and (max-width:641px) {
+
+    .blogs-container .blog-list{
+        width: 90%;
+        height: 800px;
+        margin: 40px 0;
+    }
+    .blogs-container .blog-list .blog-pic{
+        width: 100%;
+        height: 50%;
+    }
+    .blogs-container .blog-list .blog{
+        width: 100%;
+        float: left;
+    }
+    .blogs-container .blog-list .blog .read-more{
+        left: 70%;
+    }
+
+}
+@media all and (max-width:481px){
+    #pages .page-list{
+        width: 60%;
+    }
+    #pages .page-list li{
+        width: 50px;
+    }
+}
+/*
+@media all and (max-width:381px){
+
+}*/

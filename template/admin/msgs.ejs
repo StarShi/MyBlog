@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>banner</title>
+    <% include components/css.inc.ejs%>
+</head>
+<body>
+<% include components/top.inc.ejs %>
+<div class="page">
+    <% include components/left.inc.ejs %>
+    <div class="content-wrap" >
+        <div>
+            <form action="?" method="post">
+                名字：<input type="text" name="name"><br/>
+                邮箱：<input type="text" name="email"><br/>
+                电话：<input type="text" name="phone"><br/>
+                主题：<textarea name="subject"></textarea><br/>
+                <input type="submit" value="提交">
+            </form>
+        </div>
+        <table border="1" width="100%">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>名字</th>
+                <th>邮箱</th>
+                <th>电话</th>
+                <th>主题</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for(var i=0,len=msgs.length;i<len;i++){%>
+            <tr>
+                <td><%= msgs[i].ID %></td>
+                <td><%= msgs[i].name %></td>
+                <td><%= msgs[i].email %></td>
+                <td><%= msgs[i].phone %></td>
+                <td><%= msgs[i].subject %></td>
+                <td>
+                    <a href="?act=update&id=<%= msgs[i].ID%>">修改</a>
+                    <a href="?act=delete&id=<%= msgs[i].ID%>" onclick="return confirm('你真的要删除该条记录吗？');">删除</a>
+                </td>
+            </tr>
+            <% }%>
+            </tbody>
+        </table>
+        <% if(typeof updateMsg != 'undefined'){ %>
+        <div>
+            <form action="?" method="post">
+                <input type="hidden" name="update_id" value="<%= updateMsg.ID%>">
+                名字：<input type="text" name="name" value="<%= updateMsg.name%>"><br/>
+                邮箱：<input type="text" name="email" value="<%= updateMsg.email%>"><br/>
+                电话：<input type="text" name="phone" value="<%= updateMsg.phone%>"><br/>
+                主题：<textarea name="subject"><%= updateMsg.subject%></textarea><br/>
+                <input type="submit" value="提交">
+            </form>
+        </div>
+        <% } %>
+    </div>
+</div>
+</body>
+</html>

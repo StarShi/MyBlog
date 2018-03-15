@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>技术前沿--热点资讯</title>
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/morenews.css">
+</head>
+<body>
+    <!--头部-->
+    <header id="header">
+    <div class="nav">
+        <div class="nav-left">
+            <a href="#">
+                <i class="icon">&#xe907</i>
+                <p>Star'github</p>
+            </a>
+        </div>
+        <div class="nav-right"><i class="icon">&#xf0ca</i></div>
+    </div>
+    <nav id="nav-ul">
+        <ul>
+            <li>首页</li>
+            <li>新闻</li>
+            <li>博文</li>
+            <li>作品</li>
+        </ul>
+    </nav>
+</header>
+    <!--新闻-->
+    <section id="morenews">
+        <h2>新闻列表</h2>
+        <div class="morenews-container">
+<!--            <div class="news-list-1 news-list">
+                <div class="news-pic left"><img src="images/banner1.jpg" alt="pic"></div>
+                <div class="news right">
+                    <h3 class="news-title">news-title,news-title</h3>
+                    <p class="news-summary">news-summary,news-summary,news-summary,news-summary</p>
+                    <a href="#" class="read-more">read more</a>
+                </div>
+            </div>
+            <div class="news-list-2 news-list">
+                <div class="news-pic left"><img src="images/banner1.jpg" alt="pic"></div>
+                <div class="news right">
+                    <h3 class="news-title">news-title,news-title</h3>
+                    <p class="news-summary">news-summarynews-summarynews-summarynews-summarynews-summary,news-summary,news-summary,news-summary</p>
+                    <a href="#" class="read-more">read more</a>
+                </div>
+            </div>
+            <div class="news-list-3 news-list">
+                <div class="news-pic left"><img src="images/banner1.jpg" alt="pic"></div>
+                <div class="news right">
+                    <h3 class="news-title">news-title,news-title</h3>
+                    <p class="news-summary">news-summarynews-summarynews-summarynews-summarynews-summary,news-summary,news-summary,news-summary</p>
+                    <a href="#" class="read-more">read more</a>
+                </div>
+            </div>
+            <div class="news-list-4 news-list">
+                <div class="news-pic left"><img src="images/banner1.jpg" alt="pic"></div>
+                <div class="news right">
+                    <h3 class="news-title">news-title,news-title</h3>
+                    <p class="news-summary">news-summarynews-summarynews-summarynews-summarynews-summary,news-summary,news-summary,news-summary</p>
+                    <a href="#" class="read-more">read more</a>
+                </div>
+            </div>-->
+        </div>
+    </section>
+    <nav id="pages">
+        <ul class="page-list">
+
+        </ul>
+    </nav>
+    <!--尾部-->
+    <footer id="footer">
+        <div class="footer">
+            <p>Star</p>
+        </div>
+    </footer>
+</body>
+<script type="text/javascript" charset="utf-8" src="js/ajax.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/headnav.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/mypages.js"></script>
+<script type="text/javascript" charset="utf-8">
+    var aPage = null;//初始化全局页码对象
+    moreNews();
+    //获取更多的新闻
+    function moreNews() {
+        var oUl = document.querySelector("#pages .page-list");
+        var cache = {},// 缓存池 缓存分页数据
+            start = 0,//初始化开始获取数据的下标
+            count = 4,//初始化每页获取的记录数
+            page = 1;//初始化页码
+        //console.log(oNewsBox);
+        newsPage();
+        getNews(start,page,count,cache);//自动获取第一页数据
+        oUl.addEventListener("click",function (e) {
+            var e = e || window.event;
+            var target = e.target;
+            var oActLi = document.querySelector(".active");
+            liIndex = parseInt(oActLi.innerHTML);//获取当前页码
+            if (target.tagName.toLowerCase() === "li"){
+                switch (target.innerHTML){
+                    case "上一页":
+                        if(liIndex <= 1){//当前页面为第一页时直接退出
+                            return;
+                        }
+                        start = (liIndex-2)*4;
+                        page = liIndex-1;//获取的页页码为当前页面的前一页
+                        getNews(start,page,count,cache);
+                        break;
+                    case "下一页":
+                        if(liIndex >= aPage.pages){ //如果当前页码 大于或等于实际的页码 直接退出
+                            return;
+                        }
+                        start = liIndex*4;
+                        page = liIndex+1;//获取的页页码为当前页面的前一页
+                        getNews(start,page,count,cache);
+                        break;
+                    default:
+                        var liPage = target.innerHTML;
+                        //console.log(liPage);
+                        start = (liPage-1)*4;
+                        page = liPage;
+                        getNews(start,page,count,cache);
+                        break;
+                }
+            }
+        },false);
+        
+    }
+    //整理新闻数据
+    function formateNews(data) {
+        var news = [];
+        data.forEach(function (item) {
+            news.push({
+                ID:item.ID,
+                title:item.title,
+                bigPicSrc : "/upload/"+item.big_pic_src,
+                summary:item.summary
+            });
+        });
+        return news;
+    }
+    //渲染新闻数据
+    function renderNews(data) {
+        var oNewsBox = document.querySelector("#morenews .morenews-container");
+        oNewsBox.innerHTML = "";
+        for(var i=0,len = data.length;i<len;i++){
+            oNewsBox.innerHTML += ` <div class="news-list">
+                <div class="news-pic left"><img src="${data[i].bigPicSrc}" alt="pic"></div>
+                <div class="news right">
+                    <h3 class="news-title">${data[i].title}</h3>
+                    <p class="news-summary">${data[i].summary}</p>
+                    <a href="/news.html?id=${data[i].ID}" class="read-more">read more</a>
+                </div>
+            </div>`;
+        }
+
+    }
+    function newsPage() {
+        getData({
+            url:"/get_newsCount",
+            data:null,
+            callback:function (res) {
+                var obj = [];
+                for( var key of res ){
+                    obj.push(key);
+                }
+                var count =parseInt(obj[0]["count"]);
+                aPage = new MyPages(count);
+                aPage.init();
+                aPage.event();
+            }
+        });
+    }
+    //获取新闻函数 start开始获取数据的下标   page页码  count每页获取的记录数 cache 数据缓存池{}
+    function getNews(start,page,count,cache) {
+        var start = start || 0;
+        var page = page || 0;
+        var count = count || 10;
+        var cache = cache || {};
+        if(page in cache) {
+            renderNews(cache[page]);
+            console.log("数据缓存了！")
+        }else {
+            getData({
+                url:"/get_moreNews",
+                data:{"start":start,"count":count},
+                callback:function (res) {
+                    var news =  formateNews(res);
+                    renderNews(news);
+                    cache[page] = news;
+                    //console.log(news);
+                }
+            });
+        }
+    }
+    //二次封装ajax函数
+    function getData(opt) {
+        new myAjax({
+            type:"get",
+            url: opt.url,
+            data:opt.data,
+            success:function (res) {
+               return opt["callback"]&&opt["callback"](res);
+            }
+        });
+    }
+</script>
+</html>

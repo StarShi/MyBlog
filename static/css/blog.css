@@ -1,0 +1,46 @@
+
+/*--blog begin--*/
+.blog{
+    width: 100%;
+
+}
+#blog-header,#blog-footer,.blog-content{
+    width: 80%;
+    margin: 50px auto;
+    border: 1px solid #c0c0c0;
+}
+
+#blog-header h1{
+    text-align: center;
+    padding: 50px 0;
+    height:100%;
+    font-size:36px;
+    color:#0586C9;
+    line-height:2em;
+}
+#blog-header img {
+    display: block;
+    width: 80%;
+    height: 300px;
+    margin: 0 auto 50px;
+    border-radius: 5%;
+}
+.blog-content p{
+    font-size:16px;/*字体大小*/
+    text-indent:2em;/*首行缩进两个单位*/
+    line-height:1.5em;/*行距为1.5个单位*/
+    padding:10px;/*用内边距代替外边距来设置段间距*/
+    margin:0;/*去掉默认的段间距*/
+}
+#blog-footer .blog-footer{
+    text-align: center;
+    padding: 10px;
+}
+#blog-footer .blog-footer span{
+    margin:0 40px;
+}
+#blog-footer .blog-footer i{
+    padding: 20px;
+}
+
+/*--blog end--*/

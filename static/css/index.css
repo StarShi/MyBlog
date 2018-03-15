@@ -1,0 +1,615 @@
+
+/*--banner begin--*/
+#banners{
+    position: relative;
+    width:100%;
+    height:100%;
+}
+#banners .banner-bg{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height:100%;
+}
+#banners .banner-bg img{
+    width: 100%;
+    height:100%;
+    animation: bannerChange 3s linear 0s;
+    animation-iteration-count:infinite;
+    animation-fill-mode:none;
+}
+@keyframes bannerChange {
+    0%{
+        transform:scale(1) ;
+    }
+    50%{
+        transform:scale(1.2);
+    }
+    100%{
+        transform:scale(1);
+    }
+}
+#banners .banner-bg .banner-info{
+    position: absolute;
+    top:20%;
+    left:25% ;
+    text-align: center;
+    width: 50%;
+    height: 400px;
+    word-break:break-all;
+}
+#banners .banner-bg .banner-info .banner-title {
+    position: relative;
+    top:40%;
+    left: 0;
+}
+#banners .banner-bg .banner-info .banner-description{
+    position: relative;
+    top:60%;
+    left: 0;
+}
+/*--banner end--*/
+/*--news begin--*/
+#news{
+    width:100%;
+}
+.news-container{
+    display: flex;
+    display: -webkit-flex;
+    -webkit-align-items:center;
+    align-items:center;
+    -webkit-justify-content:center;
+    justify-content:center;
+    width:100%;
+    height:100%;
+    margin-top: 100px;
+}
+.news-container .news-list{
+    width: 250px;
+    height: 360px;
+    margin: 20px;
+    border: 1px solid #c0c0c0;
+}
+.news-container .news-list .news-title,
+.news-container .news-list .news-summary{
+    overflow: hidden;
+    display: block;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.news-container .news-list .news-icon{
+    width: 50%;
+    margin: 10px 25% 20px;
+}
+.news-container .news-list .news-icon,
+.news-container .news-list .news-title{
+    height: 50px;
+}
+.news-container .news-list .news-summary{
+    height:150px;
+}
+.news-container .news-list:hover,
+.news-container .news-list .news-icon:hover,
+.news-container .news-list .news-title:hover,
+.news-container .news-list .news-summary:hover{
+    border-color: #000000;
+}
+.news-container .news-list:hover > .read-more,
+.news-container .news-list .news-icon:hover ~ .news-container .news-list .read-more,
+.news-container .news-list .news-title:hover ~ .news-container .news-list .read-more,
+.news-container .news-list .news-summary:hover ~ .news-container .news-list .read-more{
+    border-color: #cc0000;
+}
+.news-container .news-list .read-more{
+    position: relative;
+    line-height: 50px;
+    font-size: 20px;
+    width: 150px;
+    margin: 0 auto;
+}
+.news-container .news-list .read-more::after{
+    width: 150px;
+}
+/*--news end--*/
+/*--blogs begin--*/
+#blogs{
+    width: 100%;
+}
+.blogs-container{
+    display: flex;
+    display: -webkit-flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-align-items:center;
+    align-items:center;
+    -webkit-justify-content:center;
+    justify-content:center;
+    width:100%;
+    margin-top:80px;
+}
+.blogs-container .blog-list{
+    width: 90%;
+    height: 400px;
+    margin: 40px 0;
+    padding: 5px;
+    border: 1px solid #c0c0c0;
+}
+.blogs-container .blog-list .blog-pic,
+.blogs-container .blog-list .blog{
+    width: 49%;
+    height: 100%;
+}
+.blogs-container .blog-list .blog-pic img{
+    width: 100%;
+    height: 100%;
+}
+.blogs-container .blog-list .blog .blog-title,
+.blogs-container .blog-list .blog .blog-summary{
+    overflow: hidden;
+    width: 100%;
+}
+.blogs-container .blog-list .blog .blog-title{
+    height: 100px;
+}
+.blogs-container .blog-list .blog .blog-summary{
+    height: 250px;
+}
+.blogs-container .blog-list .blog .read-more{
+    position: relative;
+    left:70%;
+    bottom: 0;
+    height:50px;
+    width: 100px;
+    line-height: 50px;
+}
+.blogs-container .blog-list .blog .read-more:after{
+    height: 50px;
+    width: 100px;
+}
+/*--blogs end--*/
+
+/*--instros begin--*/
+#instros{
+    width: 100%;
+}
+.instros-container{
+    width: 90%;
+    height: 100%;
+    margin: 80px auto 0;
+}
+.instros-container .instros-info{
+    position: relative;
+    top:100px;
+    left: 0;
+    width: 30%;
+    /*margin-left: 50px;*/
+    /*margin-right: -50px;*/
+}
+.instros-container .instros-info p{
+    font-size: 20px;
+    line-height: 30px;
+}
+.instros-container .instros-lists{
+    display: flex;
+    display: -webkit-flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-align-items: center;
+    align-items:center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    width: 60%;
+}
+.instros-container .instros-lists  .instros-list{
+    position: relative;
+    width: 300px;
+    height: 300px;
+    background: #000000;
+    margin: 20px;
+    text-align: center;
+    -webkit-flex:250px;
+    flex:250px;
+}
+.instros-container .instros-lists .instros-list img{
+    width: 100%;
+    height: 100%;
+}
+.instros-container .instros-lists .instros-list .instros-list-info{
+    display: block;
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: #000000;
+    opacity: 0;
+    z-index: 1;
+    text-decoration: none;
+}
+.instros-container .instros-lists .instros-list .instros-list-info::before{
+    display: block;
+    position: relative;
+    top:0;
+    left: 0;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: #c0c0c0;
+    opacity: 0.6;
+}
+.instros-container .instros-lists .instros-list .instros-list-info .instros-title{
+    position: relative;
+    top:-70%;
+    left: 0;
+}
+.instros-container .instros-lists .instros-list .instros-list-info .instros-description{
+    position: relative;
+    top:-50%;
+    left: 0;
+}
+.instros-container .instros-lists .instros-list img:hover ~ .instros-list-info,
+.instros-container .instros-lists .instros-list .instros-list-info:hover{
+    opacity: 1;
+}
+/*--instros end--*/
+/*--friends begin--*/
+#friends{
+    width: 100%;
+}
+.friends-container{
+    position: relative;
+    width: 85%;
+    height: 100%;
+    margin: 50px auto 0;
+}
+.friends-container .friends-info{
+    width:50%;
+    text-align: center;
+    margin: 80px auto 50px;
+}
+.friends-container .friends-show-list{
+    position: relative;
+    overflow: hidden;
+    width:100%;
+    height:304px ;
+    margin: 0 auto;
+}
+.friends-container .friends-show-list .friends-list{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width:3000px;
+    font-size: 0;
+    height: 320px;
+}
+.friends-container .friends-show-list .friends-list li,
+.friends-container .friends-show-list .friends-list li a{
+    width: 300px;
+    height: 300px;
+    color: #000000;
+}
+.friends-container .friends-show-list .friends-list li{
+    display: inline-block;
+    text-align: center;
+    margin: 0 50px;
+    font-size: 16px;
+    border:2px solid #c0c0c0;
+}
+.friends-container .friends-show-list .friends-list li a{
+    display:block;
+    position: relative;
+}
+
+/*.friends-container .friends-show-list .friends-list li:first-child{
+    margin-left: 100px;
+}
+.friends-container .friends-show-list .friends-list li:last-child{
+    margin-right: 100px;
+}*/
+.friends-container .friends-show-list .friends-list li a img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.friends-container .friends-show-list .friends-list li:hover{
+    border-color:#000000;
+}
+.friends-container .friends-show-list .friends-list li a:hover{
+    text-decoration: none;
+    background: #c0c0c0;
+}
+.friends-container .friends-show-list .friends-list li a:hover > img{
+    opacity: 0.6;
+}
+.friends-container .friends-show-list .friends-list li a:hover > .friends-title,
+.friends-container .friends-show-list .friends-list li a:hover > .friends-description{
+    opacity: 1;
+}
+.friends-container .friends-show-list .friends-list li a .friends-title{
+    position: absolute;
+    top:20%;
+    left: 10%;
+    width: 80%;
+    opacity: 0;
+    color: #00fffa;
+}
+.friends-container .friends-show-list .friends-list li a .friends-description{
+    position: absolute;
+    top:40%;
+    left: 20%;
+    width: 60%;
+    opacity: 0;
+    color: #00fffa;
+}
+.friends-container .icon{
+    font-size: 80px;
+    color: #c0c0c0;
+}
+.friends-container .icon:hover{
+    color:#cc0000;
+    cursor: pointer;
+}
+.friends-container .friends-icon-left{
+    position: absolute;
+    top:190px;
+    left: -60px;
+}
+.friends-container .friends-icon-right{
+    position: absolute;
+    top:190px;
+    left:100%;
+}
+/*--friends end--*/
+/*--aboutme begin--*/
+#aboutme{
+    width: 100%;
+}
+.aboutme-container{
+    width: 100%;
+    height: 100%;
+    margin: 80px auto 0;
+}
+.aboutme-container .aboutme-pic,
+.aboutme-container .aboutme-info{
+    width: 48%;
+    height:100%;
+}
+.aboutme-container .aboutme-pic img,
+.aboutme-container .aboutme-info div{
+    width: 100%;
+    height: 100%;
+}
+.aboutme-container .aboutme-info .aboutme-title{
+    position: relative;
+    top: 20%;
+    left: 0;
+}
+.aboutme-container .aboutme-info .aboutme-content{
+    position: relative;
+    top: 30%;
+    left: 0;
+}
+/*--aboutme end--*/
+/*--msgs begin--*/
+#msgs{
+    width: 100%;
+    height: 600px;
+}
+.msgs-contaniner{
+    width: 80%;
+    height: 100%;
+    margin: 60px auto 0;
+}
+.msgs-contaniner .msgs-title{
+    font-size: 30px;
+}
+.msgs-contaniner .msgs-detail{
+    position: relative;
+    top:80px;
+    left: 0;
+}
+.msgs-contaniner .msgs-contact{
+    width: 25%;
+    padding: 20px 0;
+}
+
+.msgs-contaniner .msgs-content{
+    width: 80%;
+    height: 300px;
+    margin-top: 20px;
+    margin-right:-200px;
+    padding: 20px;
+}
+.msgs-contaniner  .msgs-content .group{
+    position: relative;
+    width: 100%;
+    margin-bottom: 50px;
+}
+.msgs-contaniner  .msgs-content .group label{
+    display: block;
+    position: absolute;
+    top:0;
+    left:0;
+    width: 75%;
+    cursor:text;
+    z-index: -1;
+}
+.msgs-contaniner  .msgs-content .group input,
+.msgs-contaniner  .msgs-content .group textarea{
+    display: block;
+    width: 75%;
+    background: transparent;
+    height: 40px;
+    font-size: 20px;
+    color: #AFB5BB;
+    border: none;
+    border-bottom: 1px solid #000;
+}
+.msgs-contaniner  .msgs-content .group textarea:focus{
+    height: 100px;
+}
+.msgs-contaniner  .msgs-content .group input:focus ~ label,
+.msgs-contaniner  .msgs-content .group textarea:focus ~ label{
+    /*   border: 1px solid red;*/
+    top:-20px;
+}
+.msgs-contaniner  .msgs-content .group input:focus + .light::after,
+.msgs-contaniner  .msgs-content .group textarea:focus + .light::after{
+    content: "";
+    position: absolute;
+    left:0;
+    top:40px;
+    width: 75%;
+    height: 3px;
+    background: #000;
+}
+.msgs-contaniner  .msgs-content .group textarea:focus + .light::after{
+    top:100px;
+}
+.msgs-contaniner  .msgs-content .group .msgs-submit{
+    border: 1px solid #000000;
+}
+.msgs-contaniner  .msgs-content .group .msgs-submit:hover{
+    background:#000000;
+    color: #fff;
+}
+/*--msgs end--*/
+
+/*自适应*/
+
+@media all and (max-width:961px) {
+    #header nav ul li{
+        padding: 1px 10px;
+    }
+    .news-container{
+        flex-wrap: wrap;
+        -webkit-flex-wrap:wrap ;
+    }
+    .news-container .news-list{
+        margin-bottom: 40px;
+        width: 300px;
+    }
+    .news-container .news-list .news-summary{
+        height:150px;
+    }
+    .instros-container .instros-lists  .instros-list{
+        width: 200px;
+        height: 200px;
+        -webkit-flex:150px;
+        flex: 150px;
+    }
+    .blogs-container .blog-list .blog-pic{
+        width: 40%;
+    }
+    .blogs-container .blog-list .blog{
+        float: left;
+        margin-left: 20px;
+    }
+/*    .friends-container .frienshow-lids-st{
+        width: 800px;
+    }*/
+}
+@media all and (max-width:700px) {
+    #header nav ul li{
+        padding: 1px 5px;
+    }
+}
+@media all and (max-width:641px) {
+    .news-container{
+        flex-wrap: wrap;
+        -webkit-flex-wrap:wrap ;
+    }
+    .news-container .news-list{
+        margin-bottom: 40px;
+    }
+
+    .blogs-container .blog-list{
+        width: 90%;
+        height: 800px;
+        margin: 40px 0;
+    }
+    .blogs-container .blog-list .blog-pic{
+        width: 100%;
+        height: 50%;
+    }
+    .blogs-container .blog-list .blog{
+        width: 100%;
+        float: left;
+    }
+    .blogs-container .blog-list .blog .read-more{
+        left: 70%;
+    }
+    #aboutme{
+        height: 900px;
+    }
+    .aboutme-container .aboutme-pic,
+    .aboutme-container .aboutme-info{
+        text-align: center;
+        width: 100%;
+        height: 50%;
+    }
+    .aboutme-container .aboutme-info{
+        float: left;
+    }
+    .aboutme-container .aboutme-info{
+        position: relative;
+        top: -5%;
+    }
+    .aboutme-container .aboutme-info .aboutme-content{
+        position: relative;
+        top: 25%;
+    }
+    #msgs{
+        height: 800px;
+        text-align: center;
+    }
+    .msgs-contaniner .msgs-contact{
+        width: 100%;
+    }
+    .msgs-contaniner .msgs-content{
+        width: 100%;
+        clear: right;
+        margin:150px auto 0;
+        padding: 0;
+    }
+    .msgs-contaniner  .msgs-content .group label{
+        width: 100%;
+    }
+    .msgs-contaniner  .msgs-content .group input,
+    .msgs-contaniner  .msgs-content .group textarea{
+        width: 100%;
+    }
+    .msgs-contaniner  .msgs-content .group input:focus + .light::after,
+    .msgs-contaniner  .msgs-content .group textarea:focus + .light::after{
+        width: 100%;
+    }
+}
+@media all and (max-width:481px){
+/*    .friends-container .friends-show-list{
+        width: 400px;
+    }
+    .friends-container .friends-show-list .friends-list{
+        left:-40px;
+    }*/
+    #header nav ul{
+        top:60px;
+        right:20px;
+    }
+    .instros-container .instros-info{
+        top:0px;
+        left: 15%;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .instros-container .instros-lists{
+        width: 100%;
+        float: left;
+    }
+
+}
+/*
+@media all and (max-width:381px){
+
+}*/

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>banner</title>
+    <% include components/css.inc.ejs%>
+</head>
+<body>
+<% include components/top.inc.ejs %>
+<div class="page">
+    <% include components/left.inc.ejs %>
+    <div class="content-wrap" >
+        <div>
+            <form action="?" method="post" enctype="multipart/form-data">
+                标题：<input type="text" name="title"><br/>
+                描述：<textarea name="description"></textarea><br/>
+                链接：<input type="text" name="href"><br/>
+                图片：<input type="file" name="src"><br/>
+                <input type="submit" value="提交">
+            </form>
+        </div>
+        <table border="1" width="100%">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>标题</th>
+                <th>描述</th>
+                <th>链接</th>
+                <th>图片</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for(var i=0,len=intros.length;i<len;i++){%>
+            <tr>
+                <td><%= intros[i].ID %></td>
+                <td><%= intros[i].title %></td>
+                <td><%= intros[i].description %></td>
+                <td><%= intros[i].href %></td>
+                <td><img src="/upload/<%= intros[i].src %>" width="50" height="50"></td>
+                <td>
+                    <a href="?act=update&id=<%= intros[i].ID%>">修改</a>
+                    <a href="?act=delete&id=<%= intros[i].ID%>" onclick="return confirm('你真的要删除该条记录吗？');">删除</a>
+                </td>
+            </tr>
+            <% }%>
+            </tbody>
+        </table>
+        <% if(typeof updateIntro != 'undefined'){ %>
+        <div>
+            <form action="?" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="update_id" value="<%= updateIntro.ID%>">
+                标题：<input type="text" name="title" value="<%= updateIntro.title%>"><br/>
+                描述：<textarea name="description"><%= updateIntro.description%></textarea><br/>
+                链接：<input type="text" name="href" value="<%= updateIntro.href%>"><br/>
+                图片：<input type="file" name="src" ><br/>
+                <input type="submit" value="修改">
+            </form>
+        </div>
+        <% } %>
+    </div>
+</div>
+</body>
+</html>

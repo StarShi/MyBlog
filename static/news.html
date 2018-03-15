@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content="关键词">
+    <meta name="Description" content="描述">
+    <title>Web前端工程师</title>
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/news.css">
+</head>
+<body>
+    <!--头部-->
+    <header id="header">
+        <div class="nav">
+            <div class="nav-left">
+                <a href="#">
+                    <i class="icon">&#xe907</i>
+                    <p>Star'github</p>
+                </a>
+            </div>
+            <div class="nav-right"><i class="icon">&#xf0ca</i></div>
+        </div>
+        <nav id="nav-ul">
+            <ul>
+                <li>首页</li>
+                <li>新闻</li>
+                <li>博文</li>
+                <li>作品</li>
+            </ul>
+        </nav>
+    </header>
+    <!--新闻-->
+<!--    <article id="news">
+        <header id="news-header">
+            <h1>${data[0].title}</h1>
+            <img src="${data[0].bigPicSrc}" alt="pic">
+        </header>
+        <div  class="news-content">
+
+        </div>
+        <footer id="news-footer">
+            <div class="news-footer">
+            </div>
+        </footer>
+    </article>-->
+    <!--尾部-->
+    <footer id="footer">
+        <div class="footer">
+            <p>Star</p>
+        </div>
+    </footer>
+</body>
+<script type="text/javascript" charset="utf-8" src="js/ajax.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/menu-click.js"></script>
+<script type="text/javascript" charset="utf-8" >
+    News();
+    function News() {
+        var content = [];//存放段落
+        var dataStr = window.location.search;
+        var  arr= dataStr.substring(1).split("=");
+        var id = arr[0];
+        var idVaule = parseInt(arr[1]);
+        getData({
+            url:"/get_newsDetail",
+            data:{id:idVaule},
+            callback:function (res) {
+                console.log(res);
+                var news = formateNews(res);
+                renderNews(news);
+            }
+        });
+        //整理数据
+        function formateNews(data) {
+            var news = [];
+            data.forEach(function (item) {
+                content.push(item.content.split("\r\n"));
+                content = content[0];
+                news.push({
+                    title : item.title,
+                    bigPicSrc : "/upload/"+item.big_pic_src,
+                    content : content
+                });
+            });
+            return news;
+        }
+        //渲染数据
+        function renderNews(data) {
+            var ofooter = document.querySelector("footer#footer");
+            var str ="";
+            for(var i=0,len=content.length;i<len;i++){
+                str +=`<p>${content[i]}</p>`;
+            }
+            var oArticle = document.createElement("article");
+            oArticle.className = "news";
+            oArticle.innerHTML = `<header id="news-header">
+                                    <h1>${data[0].title}</h1>
+                                    <img src="${data[0].bigPicSrc}" alt="pic">
+                                </header>
+                                <div  class="news-content">
+                                         ${str}
+                                </div>`;
+//            console.log(oArticle);
+//            console.log(str);
+
+            document.body.insertBefore(oArticle,ofooter);
+        }
+    }
+    //二次封装 ajax函数
+    function getData(opt) {
+        new myAjax({
+            type: 'get',
+            url: opt.url,
+            data:opt.data,
+            success:function (res) {
+                opt["callback"] && opt["callback"](res);
+            }
+        });
+    }
+</script>
+</html>

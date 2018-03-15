@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>news</title>
+    <% include components/css.inc.ejs%>
+</head>
+<body>
+<% include components/top.inc.ejs %>
+<div class="page">
+    <% include components/left.inc.ejs %>
+    <div class="content-wrap" >
+        <div>
+            <form action="?" method="post" enctype="multipart/form-data">
+                标题：<input type="text" name="title"><br/>
+                内容：<textarea name="content"></textarea><br/>
+                链接：<input type="text" name="href"><br/>
+                照片：<input type="file" name="pic_src"><br/>
+                二维码：<input type="file" name="wei_src"><br/>
+                <input type="submit" value="提交">
+            </form>
+        </div>
+        <table border="1" width="100%">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>标题</th>
+                <th>内容</th>
+                <th>链接</th>
+                <th>照片</th>
+                <th>微信</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for(var i=0,len=aboutme.length;i<len;i++){%>
+            <tr>
+                <td><%= aboutme[i].ID %></td>
+                <td><%= aboutme[i].title %></td>
+                <td><%= aboutme[i].content%></td>
+                <td><%= aboutme[i].href %></td>
+                <td><img src="/upload/<%= aboutme[i].pic_src %>" width="50" height="50"></td>
+                <td><img src="/upload/<%= aboutme[i].wei_src%>" width="50" height="50"></td>
+                <td>
+                    <a href="?act=update&id=<%= aboutme[i].ID%>">修改</a>
+                    <a href="?act=delete&id=<%= aboutme[i].ID%>" onclick="return confirm('你真的要删除该条记录吗？');">删除</a>
+                </td>
+            </tr>
+            <% }%>
+            </tbody>
+        </table>
+        <% if(typeof updateMe != 'undefined'){ %>
+        <div>
+            <form action="?" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="update_id" value="<%= updateMe.ID%>">
+                标题：<input type="text" name="title" value="<%= updateMe.title%>"><br/>
+                内容：<textarea name="content"><%= updateMe.content%></textarea><br/>
+                链接：<input type="text" name="href" value="<%= updateMe.href%>"><br/>
+                照片：<input type="file" name="pic_src"><br/>
+                二维码：<input type="file" name="wei_src"><br/>
+                <input type="submit" value="提交">
+            </form>
+        </div>
+        <% } %>
+    </div>
+</div>
+</body>
+</html>

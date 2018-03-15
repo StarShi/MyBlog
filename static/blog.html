@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="Keywords" content="关键词">
+    <meta name="Description" content="描述">
+    <title>Web前端工程师</title>
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/blog.css">
+</head>
+<body>
+    <!--头部-->
+    <header id="header">
+        <div class="nav">
+            <div class="nav-left">
+                <a href="#">
+                    <i class="icon">&#xe907</i>
+                    <p>Star'github</p>
+                </a>
+            </div>
+            <div class="nav-right"><i class="icon">&#xf0ca</i></div>
+        </div>
+        <nav id="nav-ul">
+            <ul>
+                <li>首页</li>
+                <li>新闻</li>
+                <li>博文</li>
+                <li>作品</li>
+            </ul>
+        </nav>
+    </header>
+    <!--博文-->
+    <article class="blog">
+<!--        <header id="blog-header">
+            <h1>标题</h1>
+            <img src="images/banner1.jpg" alt="pic">
+        </header>
+        <div  class="blog-content">
+            <p>1 blog-contentblog-contentblog-contentblog-contentblog-contentblog-contentblog-content</p>
+            <p>2 blog-contentblog-contentblog-contentblog-contentblog-contentblog-contentblog-content</p>
+            <p>3 blog-contentblog-contentblog-contentblog-contentblog-contentblog-contentblog-content</p>
+        </div>
+        <footer id="blog-footer">
+            <div class="blog-footer">
+                <i>renshu</i>
+                <i>renshu</i>
+                <i>renshu</i>
+            </div>
+        </footer>-->
+    </article>
+    <!--尾部-->
+    <footer id="footer">
+        <div class="footer">
+            <p>Star</p>
+        </div>
+    </footer>
+</body>
+<script type="text/javascript" charset="utf-8" src="js/ajax.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/menu-click.js"></script>
+<script type="text/javascript" charset="utf-8">
+    Blob();
+    function Blob() {
+        var content = [];//存放段落
+        var dataStr = window.location.search;
+        var  arr= dataStr.substring(1).split("=");
+        var id = arr[0];
+        var idVaule = parseInt(arr[1]);
+        console.log(id,idVaule);
+        getData({
+            url:"/get_blogDetail",
+            data:{id:idVaule},
+            callback:function (res) {
+                console.log(res);
+                var blog = formateBlog(res);
+                renderBlog(blog);
+            }
+        });
+        //整理数据
+        function formateBlog(data) {
+            var blog = [];
+            data.forEach(function (item) {
+                content.push(item.content.split("\r\n"));
+                content = content[0];
+                blog.push({
+                    title : item.title,
+                    picSrc : "/upload/"+item.pic_src,
+                    content : content,
+                    postTime:item.post_time,
+                    nViews:item.n_views,
+                    author:item.author
+                });
+            });
+            return blog;
+        }
+        //渲染数据
+        function renderBlog(data) {
+            var ofooter = document.querySelector("footer#footer");
+            var str ="";
+            for(var i=0,len=content.length;i<len;i++){
+                str +=`<p>${content[i]}</p>`;
+            }
+            var oArticle = document.createElement("article");
+            oArticle.className = "blog";
+            oArticle.innerHTML = `        <header id="blog-header">
+            <h1>${data[0].title}</h1>
+            <img src="${data[0].picSrc}" alt="pic">
+        </header>
+        <div  class="blog-content">
+          ${str}
+        </div>
+        <footer id="blog-footer">
+            <div class="blog-footer">
+                <span><i class="icon">&#xf073</i>${data[0].postTime}</span>
+                 <span><i class="icon">&#xf007</i>${data[0].author}</span>
+                <span><i class="icon">&#xf06e</i>${data[0].nViews}</span>
+            </div>
+        </footer>`;
+//            console.log(oArticle);
+//            console.log(str);
+
+            document.body.insertBefore(oArticle,ofooter);
+        }
+    }
+    //二次封装 ajax函数
+    function getData(opt) {
+        new myAjax({
+            type: 'get',
+            url: opt.url,
+            data:opt.data,
+            success:function (res) {
+                opt["callback"] && opt["callback"](res);
+            }
+        });
+    }
+</script>
+</html>

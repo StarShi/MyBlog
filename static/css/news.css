@@ -1,0 +1,45 @@
+
+/*--blog begin--*/
+#news,.news{
+    width: 100%;
+}
+#news-header,#news-footer,.news-content{
+    width: 80%;
+    margin: 80px auto;
+    border: 1px solid #c0c0c0;
+}
+#news-header h1{
+    text-align: center;
+    padding: 50px 0;
+    height:100%;
+    font-size:36px;
+    color:#0586C9;
+    line-height:2em;
+}
+#news-header img {
+    display: block;
+    width: 80%;
+    height: 300px;
+    margin: 0 auto 50px;
+    border-radius: 5%;
+}
+.news-content p{
+    font-size:16px;/*字体大小*/
+    text-indent:2em;/*首行缩进两个单位*/
+    line-height:1.5em;/*行距为1.5个单位*/
+    padding:10px;/*用内边距代替外边距来设置段间距*/
+    margin:0;/*去掉默认的段间距*/
+}
+#news-footer .news-footer{
+    padding: 10px;
+}
+#news-footer .news-footer i{
+    display: inline;
+    position: relative;
+    top:0;
+}
+#news-footer .news-footer i{
+    left: 30%;
+    margin:0 40px;
+}
+/*--blog end--*/

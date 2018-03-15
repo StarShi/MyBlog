@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>作品集--我的成果</title>
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/intros.css">
+</head>
+<body>
+    <!--头部-->
+    <header id="header">
+        <div class="nav">
+            <div class="nav-left">
+                <a href="#">
+                    <i class="icon">&#xe907</i>
+                    <p>Star'github</p>
+                </a>
+            </div>
+            <div class="nav-right"><i class="icon">&#xf0ca</i></div>
+        </div>
+        <nav id="nav-ul">
+            <ul>
+                <li>首页</li>
+                <li>新闻</li>
+                <li>博文</li>
+                <li>作品</li>
+            </ul>
+        </nav>
+    </header>
+    <section id="instros">
+        <h2>我的作品</h2>
+        <div class="instros-container">
+<!--            <div class="instros-list-1 instros-list">
+                <a href="#">
+                    <div class="instros-list-info">
+                        <img src="images/banner1.jpg" alt="pic">
+                        <p class="instros-description">instros-description,instros-description,instros-description</p>
+                    </div>
+                    <h4 class="instros-title">instros-title</h4>
+                </a>
+            </div>-->
+        </div>
+    </section>
+    <!--尾部-->
+    <footer id="footer">
+        <div class="footer">
+            <p>Star</p>
+        </div>
+    </footer>
+</body>
+<script type="text/javascript" charset="utf-8" src="js/ajax.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/headnav.js"></script>
+<script type="text/javascript" charset="utf-8">
+    var width = 300 ;//元素初始宽度
+    var space = 20;//元素间隙
+    var outWidth = width + space;
+    var	num = 0; //一行放几个
+    var items = document.querySelector(".instros-container");
+    var wW = items.offsetWidth;//容器的宽度
+    var arrTop = [],
+        arrLeft = [];//存放一行元素的top值和left值
+    var outTimer = 0; //延迟触发
+    var lastDom = null;
+    var start = 0;//数据中的起始下标
+    var count = 5; //一次性加载的数据记录
+    var toggle = true;
+    var cache = [] ;//缓存池
+    cells();
+    //获取数据
+    getData({
+        url:"/get_intros",
+        data:{"start":start,"count":count},
+        callback: function (res) {
+            var intros = formateIntro(res);
+            console.log(intros);
+            renderIntro(intros)
+        }
+    });
+    //监听浏览器滚动条事件
+    window.addEventListener("scroll" , function(){
+        var  sHeight =  document.body.scrollTop + window.innerHeight;
+        var lastIndexHeight = lastDom.offsetHeight + (lastDom.offsetHeight/2) ;//最后一个元素的高度
+        console.log(sHeight,lastIndexHeight,lastDom.offsetTop);
+        if(toggle){
+            if (lastIndexHeight <= sHeight){
+                toggle = false;
+                renderIntro(cache);
+            }
+        }
+    },false);
+    //整理数据
+    function formateIntro(data) {
+        var intros = [];
+        data.forEach(function (item) {
+            intros.push({
+                src:"/upload/"+item.src,
+                title: item.title,
+                description:item.description,
+                href:item.href
+            });
+        });
+        return intros;
+    }
+    //渲染数据
+    function renderIntro(data) {
+        var index = 0;//初始化数据的下标
+        var len = data.length;
+        ~~function recur(){//递归渲染 函数自执行  ()()   ~~();
+            var minIndex = arrTop.indexOf(Math.min(...arrTop)); //存储高度最小的元素的下标
+            var intro = data[index];
+            var item = document.createElement("div");
+            item.className = "instros-list";
+            item.innerHTML = `<a href="${intro.href}">
+                    <div class="instros-list-info">
+                        <img src="${intro.src}" alt="pic">
+                        <p class="instros-description">${intro.description}</p>
+                    </div>
+                    <h4 class="instros-title">${intro.title}</h4>
+                </a>`;
+            items.appendChild(item);
+            item.querySelector("img").onload = function(){//图片加载完成后元素的位置
+                clearTimeout(outTimer);
+                outTimer = setTimeout(function(){
+                    item.style.top = arrTop[minIndex] + "px";
+                    item.style.left = arrLeft[minIndex] + "px";
+                    arrTop[minIndex] += item.offsetHeight + 2*space;
+                    //console.log(arrTop,minIndex)
+                    index++;
+                    (index === len - 1) && (lastDom = item , toggle = true);//预存最后一个元素
+                    (index<len )&&recur();//短路执行
+                },20)
+            }
+        }();
+        start += count;
+        console.log(start,count)
+        getData({
+            url:"/get_intros",
+            data:{"start":start,"count":count},
+            callback:function(res){
+                cache = [];//清空缓存池
+                var intros = formateIntro(res);
+                console.log(intros);
+                cache = intros;
+            }
+        });
+    }
+    //二次封装ajax函数
+    function getData(opt) {
+        new myAjax({
+            type:"get",
+            url:opt.url,
+            data:opt.data,
+            success:function (res) {
+                opt["callback"] && opt["callback"](res);
+            }
+        })
+    }
+    //封装瀑布流函数
+    function cells(){
+        num = ~~(wW / outWidth);
+        items.style.width = num*outWidth - space + "px";
+        for (var i=0;i<num;i++){
+            arrTop.push(0);
+            arrLeft.push(i*outWidth);
+        }
+    }
+    //获取元素属性值
+    function getStyle(elem,attr) {
+        return (elem.currentStyle) ? (elem.currentStyle[attr]) : (getComputedStyle(elem, false)[attr]);
+    }
+</script>
+
+</html>

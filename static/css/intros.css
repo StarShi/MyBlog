@@ -1,0 +1,76 @@
+/*--instros begin--*/
+#instros{
+    width: 100%;
+    overflow: visible;
+}
+.instros-container{
+    position: relative;
+    width: 90%;
+    margin: 80px auto 0;
+}
+.instros-list{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 300px;
+    text-align: center;
+    border: 1px solid #c0c0c0;
+    z-index: -1;
+}
+.instros-lists .instros-list a{
+    font-size: 0;
+    text-decoration: none;
+}
+a .instros-list-info {
+    position: relative;
+    width: 100%;
+    font-size: 16px;
+}
+.instros-list-info::before{
+    display: block;
+    position: absolute;
+    top:0;
+    left: 0;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: #c0c0c0;
+    opacity: 0;
+    z-index: 1;
+}
+.instros-list-info img{
+    width: 100%;
+    height: 100%;
+}
+.instros-list-info .instros-description{
+    position: absolute;
+    top: 45%;
+    left: 0;
+    color: #000000;
+    opacity: 0;
+    z-index: 2;
+}
+a .instros-title{
+    padding: 10px 0;
+    font-size: 20px;
+    color: #000000;
+}
+.instros-list a:hover{
+    text-decoration: none;
+}
+.instros-list a:hover > .instros-list-info::before{
+    opacity: 0.6;
+}
+.instros-list a:hover >.instros-list-info .instros-description{
+    opacity: 1;
+}
+.instros-list a:hover > .instros-title {
+    background-color: #000000;
+    color: #ffffff;
+}
+/*--instros end--*/
+#footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}

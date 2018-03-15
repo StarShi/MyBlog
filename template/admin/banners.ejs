@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>banner</title>
+    <% include components/css.inc.ejs%>
+  </head>
+  <body>
+  <% include components/top.inc.ejs %>
+    <div class="page">
+      <% include components/left.inc.ejs %>
+      <div class="content-wrap" >
+        <div>
+            <form action="?" method="post">
+                标题：<input type="text" name="title"><br/>
+              描述：<textarea name="description"></textarea><br/>
+                链接：<input type="text" name="href"><br/>
+              <input type="submit" value="提交">
+            </form>
+        </div>
+        <table border="1" width="100%">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>标题</th>
+              <th>描述</th>
+              <th>链接</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% for(var i=0,len=banners.length;i<len;i++){%>
+             <tr>
+               <td><%= banners[i].ID %></td>
+               <td><%= banners[i].title %></td>
+               <td><%= banners[i].description %></td>
+               <td><%= banners[i].href %></td>
+               <td>
+                 <a href="?act=update&id=<%= banners[i].ID%>">修改</a>
+                 <a href="?act=delete&id=<%= banners[i].ID%>" onclick="return confirm('你真的要删除该条记录吗？');">删除</a>
+               </td>
+             </tr>
+          <% }%>
+          </tbody>
+        </table>
+        <% if(typeof updateBanner != 'undefined'){ %>
+        <div>
+          <form action="?" method="post">
+            <input type="hidden" name="update_id" value="<%= updateBanner.ID%>">
+            标题：<input type="text" name="title" value="<%= updateBanner.title%>"><br/>
+            描述：<textarea name="description"><%= updateBanner.description%></textarea><br/>
+            链接：<input type="text" name="href" value="<%= updateBanner.href%>"><br/>
+            <input type="submit" value="修改">
+          </form>
+        </div>
+        <% } %>
+      </div>
+    </div>
+  </body>
+</html>

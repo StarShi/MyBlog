@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的博文--学习心得</title>
+    <link rel="stylesheet" type="text/css" href="css/base.css">
+    <link rel="stylesheet" type="text/css" href="css/moreblogs.css">
+</head>
+<body>
+    <!--头部-->
+    <header id="header">
+        <div class="nav">
+            <div class="nav-left">
+                <a href="#">
+                    <i class="icon">&#xe907</i>
+                    <p>Star'github</p>
+                </a>
+            </div>
+            <div class="nav-right"><i class="icon">&#xf0ca</i></div>
+        </div>
+        <nav id="nav-ul">
+            <ul>
+                <li>首页</li>
+                <li>新闻</li>
+                <li>博文</li>
+                <li>作品</li>
+            </ul>
+        </nav>
+    </header>
+    <!--博文-->
+    <section id="blogs">
+        <h2>博文列表</h2>
+        <div class="blogs-container">
+<!--            <div class="blog-list-1 blog-list">
+                <div class="blog-pic left"><img src="images/banner1.jpg" alt="pic"></div>
+                <div class="blog right">
+                    <h3 class="blog-title">news-title,news-title</h3>
+                    <p class="blog-summary">news-summary,news-summary,news-summary,news-summary</p>
+                    <a href="#" class="read-more">read more</a>
+                </div>
+            </div>
+            <div class="blog-list-2 blog-list">
+                <div class="blog-pic left"><img src="images/banner1.jpg" alt="pic"></div>
+                <div class="blog right">
+                    <h3 class="blog-title">news-title,news-title</h3>
+                    <p class="blog-summary">news-summarynews-summarynews-summarynews-summarynews-summary,news-summary,news-summary,news-summary</p>
+                    <a href="#" class="read-more">read more</a>
+                </div>
+            </div>
+            <div class="blog-list-3 blog-list">
+                <div class="blog-pic left"><img src="images/banner1.jpg" alt="pic"></div>
+                <div class="blog right">
+                    <h3 class="blog-title">news-title,news-title</h3>
+                    <p class="blog-summary">news-summarynews-summarynews-summarynews-summarynews-summary,news-summary,news-summary,news-summary</p>
+                    <a href="#" class="read-more">read more</a>
+                </div>
+            </div>
+            <div class="blog-list-4 blog-list">
+                <div class="blog-pic left"><img src="images/banner1.jpg" alt="pic"></div>
+                <div class="blog right">
+                    <h3 class="blog-title">news-title,news-title</h3>
+                    <p class="blog-summary">news-summarynews-summarynews-summarynews-summarynews-summary,news-summary,news-summary,news-summary</p>
+                    <a href="#" class="read-more">read more</a>
+                </div>
+            </div>-->
+        </div>
+    </section>
+    <nav id="pages">
+        <ul class="page-list">
+<!--            <li>上一页</li>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>...</li>
+            <li>4</li>
+            <li>5</li>
+            <li>下一页</li>-->
+        </ul>
+    </nav>
+    <!--尾部-->
+    <footer id="footer">
+        <div class="footer">
+            <p>Star</p>
+        </div>
+    </footer>
+</body>
+<script type="text/javascript" charset="utf-8" src="js/ajax.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/headnav.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/mypages.js"></script>
+<script type="text/javascript" charset="utf-8" >
+    var aPage = null;//初始化全局页码对象
+    moreBlogs();
+    //获取更多的博文
+    function moreBlogs() {
+        var oUl = document.querySelector("#pages .page-list");
+        var cache = {},// 缓存池 缓存分页数据
+            start = 0,//初始化开始获取数据的下标
+            count = 4,//初始化每页获取的记录数
+            page = 1;//初始化页码
+        //console.log(oNewsBox);
+        blogsPage();
+        getBlogs(start,page,count,cache);//自动获取第一页数据
+        oUl.addEventListener("click",function (e) {
+            var e = e || window.event;
+            var target = e.target;
+            var oActLi = document.querySelector(".active");
+            liIndex = parseInt(oActLi.innerHTML);//获取当前页码
+            if (target.tagName.toLowerCase() === "li"){
+                switch (target.innerHTML){
+                    case "上一页":
+                        if(liIndex <= 1){//当前页面为第一页时直接退出
+                            return;
+                        }
+                        start = (liIndex-2)*4;
+                        page = liIndex-1;//获取的页页码为当前页面的前一页
+                        getBlogs(start,page,count,cache);
+                        break;
+                    case "下一页":
+                        if(liIndex >= aPage.pages){ //如果当前页码 大于或等于实际的页码 直接退出
+                            return;
+                        }
+                        start = liIndex*4;
+                        page = liIndex+1;//获取的页页码为当前页面的前一页
+                            getBlogs(start,page,count,cache);
+                        break;
+                    default:
+                        var liPage = target.innerHTML;
+                        //console.log(liPage);
+                        start = (liPage-1)*4;
+                        page = liPage;
+                        getBlogs(start,page,count,cache);
+                        break;
+                }
+            }
+        },false);
+
+    }
+    //整理博文数据
+    function formateBlogs(data) {
+        var blogs = [];
+        data.forEach(function (item) {
+            blogs.push({
+                ID:item.ID,
+                title:item.title,
+                picSrc : "/upload/"+item.pic_src,
+                summary:item.summary
+            });
+        });
+        return blogs;
+    }
+    //渲染博文数据
+    function renderBlogs(data) {
+        var oBlogsBox = document.querySelector("#blogs .blogs-container");
+        oBlogsBox.innerHTML = "";
+        for(var i=0,len = data.length;i<len;i++){
+            oBlogsBox.innerHTML += ` <div class="blog-list">
+                <div class="blog-pic left"><img src="${data[i].picSrc}" alt="pic"></div>
+				<div class="blog right">
+					<h3 class="blog-title">${data[i].title}</h3>
+					<p class="blog-summary">${data[i].summary}</p>
+					<a href="/blog.html?id=${data[i].ID}" class="read-more">read more</a>
+				</div>
+            </div>`;
+        }
+    }
+    function blogsPage() {
+        getData({
+            url:"/get_blogsCount",
+            data:null,
+            callback:function (res) {
+                var obj = [];
+                for( var key of res ){
+                    obj.push(key);
+                }
+                var count =parseInt(obj[0]["count"]);
+                aPage = new MyPages(count);
+                aPage.init();
+                aPage.event();
+            }
+        });
+    }
+    //获取博文函数 start开始获取数据的下标   page页码  count每页获取的记录数 cache 数据缓存池{}
+    function getBlogs(start,page,count,cache) {
+        var start = start || 0;
+        var page = page || 0;
+        var count = count || 10;
+        var cache = cache || {};
+        if(page in cache) {
+            renderBlogs(cache[page]);
+            console.log("数据缓存了！")
+        }else {
+            getData({
+                url:"/get_moreBlogs",
+                data:{"start":start,"count":count},
+                callback:function (res) {
+                    var blogs =  formateBlogs(res);
+                    renderBlogs(blogs);
+                    cache[page] = blogs;
+                    //console.log(news);
+                }
+            });
+        }
+    }
+    //二次封装ajax函数
+    function getData(opt) {
+        new myAjax({
+            type:"get",
+            url: opt.url,
+            data:opt.data,
+            success:function (res) {
+                return opt["callback"]&&opt["callback"](res);
+            }
+        });
+    }
+</script>>
+</html>
